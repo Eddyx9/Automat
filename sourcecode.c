@@ -29,7 +29,7 @@ int angebot() {
 
 /* Funktion "info" verarbeitet die Wahl indem sie, je nach Wahl, den Preis ausgibt. */ 
 
-int info(wahl) {
+float info(wahl) {
    
  float preis = 0;
  //printf("%i",wahl); //test
@@ -72,6 +72,7 @@ switch(wahl) {
     default:printf("Bitte geben Sie eine gültige Zahl ein!\n");
 	      main();
   }
+  //printf("BREAKPOINT: PREIS IN FUNCTION info() = %f", preis);
   return preis;
 }
 
@@ -91,31 +92,34 @@ float gezahlt2;	//Gerade bezahlt
 float preis2;	//Preis in Cent
 
 while(1) {
-wahl = angebot(); //Aufruf Funktion  "angebot"
-preis2 = info(wahl); //Aufruf Funktion "info" ; Problem beim übertragen von Preis von "info" zu main
-preis = preis2 / 100;	// Umwandlung zu Dezimalbruch
-//printf("%.2f\n",preis); //test
-printf("\n");
-printf("Bitte bezahlen Sie %.2f €:\n", preis);
-//printf("%f\n", preis);
-scanf("%f", &gezahlt); //Einlesen der "Bezahlung"
-
-/* Endlosschleife läuft so lange bis Preis gleich gezahlt ist */
-
-while(1) {
-  //Falls zu viel bezahlt:
-  if(gezahlt > preis) {
-    back = gezahlt - preis;
-    printf("Rückgeld: %.2f €\n", back);
-    break;
-  }
-  //Falls zu wenig bezahlt:
-  else if(gezahlt < preis) {
-      ausstehend = preis - gezahlt;
-      printf("Bitte zahlen Sie %.2f €!\n", ausstehend);
-      gezahlt = gezahlt + scanf("%f", &gezahlt2);
-      continue;
-  }
+	wahl = angebot(); //Aufruf Funktion  "angebot"
+	preis2 = info(wahl); //Aufruf Funktion "info" ; Problem beim übertragen von Preis von "info" zu main
+	printf(" PREIS IN FUNCTION MAIN VAR PREIS2: %f", preis2);
+	preis = preis2 / 100;	// Umwandlung zu Dezimalbruch
+	//printf("%.2f\n",preis); //test
+	printf("\n");
+	printf("Bitte bezahlen Sie %.2f €:\n", preis);
+	//printf("%f\n", preis);
+	scanf("%f", &gezahlt); //Einlesen der "Bezahlung"
+	
+	/* Endlosschleife läuft so lange bis Preis gleich gezahlt ist */
+	
+	while(1)
+	{
+		//Falls zu viel bezahlt:
+		if(gezahlt > preis)
+		{
+			back = gezahlt - preis;
+			printf("Rückgeld: %.2f €\n", back);
+			break;
+		}
+		//Falls zu wenig bezahlt:
+		else if(gezahlt < preis) {
+			ausstehend = preis - gezahlt;
+			printf("Bitte zahlen Sie %.2f €!\n", ausstehend);
+			gezahlt = gezahlt + scanf("%f", &gezahlt2);
+			continue;
+		}
   //Falls passend:
   else {
     printf("Passt genau!");
